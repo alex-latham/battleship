@@ -6,4 +6,12 @@ class Ship
     @length = length_parameter
     @health = length_parameter
   end
+
+  def sunk?
+    @health == 0 ? true : false
+  end
+
+  def hit
+    @health -= 1
+  end
 end
