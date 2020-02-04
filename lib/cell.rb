@@ -14,4 +14,8 @@ class Cell
   def place_ship(ship_parameter)
     @ship = ship_parameter
   end
+
+  def fired_upon?
+    false
+  end
 end
