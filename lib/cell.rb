@@ -5,6 +5,7 @@ class Cell
   def initialize(coordinate_parameter)
     @coordinate = coordinate_parameter
     @ship = nil
+    @fired_upon = false
   end
 
   def empty?
@@ -16,10 +17,15 @@ class Cell
   end
 
   def fired_upon?
-    false
+    @fired_upon
   end
 
   def fire_upon
-    @ship.hit
+    @fired_upon = true
+
+    if @ship != nil
+      @ship.hit
+    end
+
   end
 end
