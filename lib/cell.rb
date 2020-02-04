@@ -18,4 +18,8 @@ class Cell
   def fired_upon?
     false
   end
+
+  def fire_upon
+    @ship.hit
+  end
 end
