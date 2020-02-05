@@ -1,7 +1,6 @@
 class Board
   attr_reader :cells
 
-  # Ask teacher why our initialize is empty
   def initialize
     @cells = {
       "A1" => Cell.new("A1"),
@@ -26,4 +25,9 @@ class Board
   def valid_coordinate?(coordinate_parameter)
     @cells.include?(coordinate_parameter)
   end
+
+  def valid_placement?(ship_parameter, coordinates_parameter)
+    coordinates_parameter.length == ship_parameter.length
+  end
+
 end
