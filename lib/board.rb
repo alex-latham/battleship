@@ -1,3 +1,4 @@
+require 'pry'
 class Board
   attr_reader :cells
 
@@ -30,7 +31,9 @@ class Board
     letters = coordinates_parameter.map {|coordinate| coordinate[0].ord }.uniq.sort!
     numbers = coordinates_parameter.map {|coordinate| coordinate[1].to_i }.uniq.sort!
 
-    if coordinates_parameter.length == ship_parameter.length
+    # ask if this is an okay construction for a multiline if statement
+    if coordinates_parameter.length == ship_parameter.length &&
+    coordinates_parameter.all? {|coordinate| @cells[coordinate].ship == nil}
       if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
         true
       else
