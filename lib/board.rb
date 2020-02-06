@@ -27,7 +27,17 @@ class Board
   end
 
   def valid_placement?(ship_parameter, coordinates_parameter)
-    coordinates_parameter.length == ship_parameter.length
-  end
+    letters = coordinates_parameter.map {|coordinate| coordinate[0].ord }.uniq.sort!
+    numbers = coordinates_parameter.map {|coordinate| coordinate[1].to_i }.uniq.sort!
 
+    if coordinates_parameter.length == ship_parameter.length
+      if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
+        true
+      else
+        letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
+      end
+    else
+      false
+    end
+  end
 end
