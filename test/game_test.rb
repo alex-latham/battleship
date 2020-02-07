@@ -25,7 +25,11 @@ class GameTest < Minitest::Test
     game = Game.new(@boards, @ships)
     game.place_computer_ship(@ships[0])
     occupied_cells = @boards[0].cells.values.count{ |cell| cell.ship != nil}
+
     assert_equal 3, occupied_cells
 
+    game.place_computer_ship(@ships[1])
+    occupied_cells = @boards[0].cells.values.count{ |cell| cell.ship != nil}
+    assert_equal 5, occupied_cells
   end
 end

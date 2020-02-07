@@ -39,13 +39,14 @@ class Board
     if valid_placement_coordinate_length?(ship_parameter, coordinates_parameter)
       if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
         true
+      elsif letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
+        true
       else
-        letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
+        false
       end
     else
       false
     end
-
   end
 
   def place(ship_parameter, coordinates_parameter)

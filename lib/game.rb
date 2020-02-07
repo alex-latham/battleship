@@ -16,19 +16,45 @@ class Game
     response = gets.chomp.downcase
 
     if response == "p"
-      setup
-    else
-      abort("Fine, byeeeeeee.")
+      place_computer_ship(@computer_cruiser)
+      place_computer_ship(@computer_submarine)
+
+      puts "I have laid out my ships on the grid."
+      puts "You now need to lay out your two ships."
+      puts "The Cruiser is three units long and the Submarine is two units long."
+      puts @player_board.render(true)
+
+      puts "Enter the squares for the Cruiser (3 spaces):"
+      response = gets.chomp.upcase.split(" ")
+      if response.all? do |coordinate|
+         valid_coordinate?(coordinate) == true
+       end
+        until @player_board.place(@player_cruiser, response) != nil do
+          puts "Those are invalid coordinates. Please try again:"
+          response = gets.chomp.upcase.split(" ")
+        end
+      else
+      puts @player_board.render(true)
+
+      puts "Enter the squares for the Submarine (2 spaces):"
+      response = gets.chomp.upcase.split(" ")
+
+      until @player_board.place(@player_submarine, response) != nil do
+        puts "Those are invalid coordinates. Please try again:"
+        response = gets.chomp.upcase.split(" ")
+      end
+      puts @player_board.render(true)
+
+      else
+        abort("Fine, byeeeeeee.")
     end
   end
 
   def place_computer_ship(ship_parameter)
-
-    # set up cruiser
-      cruiser_coordinates = nil
-      until  cruiser_coordinates != nil do
+      ship_coordinates = nil
+      until  ship_coordinates != nil do
         random_coordinates = @computer_board.cells.keys.sample(ship_parameter.length)
-        cruiser_coordinates = @computer_board.place(ship_parameter, random_coordinates)
+        ship_coordinates = @computer_board.place(ship_parameter, random_coordinates)
       end
   end
 
