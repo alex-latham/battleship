@@ -93,7 +93,7 @@ class BoardTest < Minitest::Test
     board.place(cruiser, ["A1", "A2", "A3"])
     blank_board = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     ship_board = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
-    require 'pry'; binding.pry
+
     assert_equal blank_board, board.render
     assert_equal ship_board, board.render(true)
   end
