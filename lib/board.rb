@@ -26,17 +26,16 @@ class Board
     @cells.include?(coordinate_parameter)
   end
 
-
-  def valid_placement_coordinate_length?(ship_parameter, coordinates_parameter)
-    coordinates_parameter.length == ship_parameter.length &&
+  def target_coordinates_empty?(ship_parameter, coordinates_parameter)
     coordinates_parameter.all? {|coordinate| @cells[coordinate].ship == nil}
   end
 
   def valid_placement?(ship_parameter, coordinates_parameter)
-    letters = coordinates_parameter.map {|coordinate| coordinate[0].ord }.uniq.sort!
-    numbers = coordinates_parameter.map {|coordinate| coordinate[1].to_i }.uniq.sort!
+    letters = coordinates_parameter.map { |coordinate| coordinate[0].ord }.uniq.sort!
+    numbers = coordinates_parameter.map { |coordinate| coordinate[1].to_i }.uniq.sort!
 
-    if valid_placement_coordinate_length?(ship_parameter, coordinates_parameter)
+    if coordinates_parameter.all? { |coordinate| valid_coordinate?(coordinate) == true} &&
+      target_coordinates_empty?(ship_parameter, coordinates_parameter)
       return true if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
       return true if letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
       return false
