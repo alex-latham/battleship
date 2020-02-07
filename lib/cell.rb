@@ -8,7 +8,7 @@ class Cell
   end
 
   def empty?
-    ship == nil ? true : false
+    ship == nil
   end
 
   def place_ship(ship_parameter)
