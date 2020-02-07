@@ -1,4 +1,3 @@
-require 'pry'
 class Board
   attr_reader :cells
 
@@ -56,7 +55,7 @@ class Board
       end
     end
   end
-# refactor this method later 
+# refactor this method later
   def render(show_ship = false)
     header = "  1 2 3 4 \n"
     row_a = "A #{@cells["A1"].render(show_ship)} #{@cells["A2"].render(show_ship)} #{@cells["A3"].render(show_ship)} #{@cells["A4"].render(show_ship)} \n"
