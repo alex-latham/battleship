@@ -15,39 +15,38 @@ class Game
 
     response = gets.chomp.downcase
 
-    if response == "p"
-      place_computer_ship(@computer_cruiser)
-      place_computer_ship(@computer_submarine)
+    return abort("Fine, byeeeeeee.") if response == "q"
+    return play_game if response == "p"
+    return start
+  end
 
-      puts "I have laid out my ships on the grid."
-      puts "You now need to lay out your two ships."
-      puts "The Cruiser is three units long and the Submarine is two units long."
-      puts @player_board.render(true)
+  def play_game
+    place_computer_ship(@computer_cruiser)
+    place_computer_ship(@computer_submarine)
 
-      puts "Enter the squares for the Cruiser (3 spaces):"
+    puts "I have laid out my ships on the grid."
+    puts "You now need to lay out your two ships."
+    puts "The Cruiser is three units long and the Submarine is two units long."
+    puts @player_board.render(true)
+
+    puts "Enter the squares for the Cruiser (3 spaces):"
+    response = gets.chomp.upcase.split(" ")
+
+    until @player_board.place(@player_cruiser, response) != nil do
+      puts "Those are invalid coordinates. Please try again:"
       response = gets.chomp.upcase.split(" ")
-      if response.all? do |coordinate|
-         valid_coordinate?(coordinate) == true
-       end
-        until @player_board.place(@player_cruiser, response) != nil do
-          puts "Those are invalid coordinates. Please try again:"
-          response = gets.chomp.upcase.split(" ")
-        end
-      else
-      puts @player_board.render(true)
-
-      puts "Enter the squares for the Submarine (2 spaces):"
-      response = gets.chomp.upcase.split(" ")
-
-      until @player_board.place(@player_submarine, response) != nil do
-        puts "Those are invalid coordinates. Please try again:"
-        response = gets.chomp.upcase.split(" ")
-      end
-      puts @player_board.render(true)
-
-      else
-        abort("Fine, byeeeeeee.")
     end
+    puts @player_board.render(true)
+
+    puts "Enter the squares for the Submarine (2 spaces):"
+    response = gets.chomp.upcase.split(" ")
+
+    until @player_board.place(@player_submarine, response) != nil do
+      puts "Those are invalid coordinates. Please try again:"
+      response = gets.chomp.upcase.split(" ")
+    end
+
+    puts @player_board.render(true)
   end
 
   def place_computer_ship(ship_parameter)
