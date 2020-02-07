@@ -22,12 +22,14 @@ class Game
     end
   end
 
-  def setup
-    require "pry"; binding.pry
+  def place_computer_ship(ship_parameter)
 
     # set up cruiser
-    random_coordinate = @computer_board.cells.keys.sample
-    # @computer_board.cells[random_coordinate].
+      cruiser_coordinates = nil
+      until  cruiser_coordinates != nil do
+        random_coordinates = @computer_board.cells.keys.sample(ship_parameter.length)
+        cruiser_coordinates = @computer_board.place(ship_parameter, random_coordinates)
+      end
   end
 
 end
