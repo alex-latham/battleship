@@ -10,4 +10,4 @@ ships = [Ship.new("Cruiser", 3),
   Ship.new("Submarine", 2)]
 
 game = Game.new(boards, ships)
-game.start
+game.main_menu
