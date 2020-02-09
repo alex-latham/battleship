@@ -37,6 +37,7 @@ class Game
 
   def turn
     display_boards
+    player_shot
   end
 
   def place_player_ship(ship_parameter)
@@ -67,7 +68,6 @@ class Game
   def player_shot
     puts "Enter the coordinate for your shot:"
     response = gets.chomp.upcase
-    
-
+    @player_board.valid_target?(response)
   end
 end

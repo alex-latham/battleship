@@ -51,6 +51,11 @@ class Board
       end
     end
   end
+
+  def valid_target?(coordinate)
+    !@cells[coordinate].fired_upon? && valid_coordinate?(coordinate)
+  end
+
 # refactor this method later
   def render(show_ship = false)
     header = "  1 2 3 4 \n"
