@@ -27,7 +27,7 @@ class Board
   end
 
   def target_coordinates_empty?(ship_parameter, coordinates_parameter)
-    coordinates_parameter.all? {|coordinate| @cells[coordinate].ship == nil}
+    coordinates_parameter.all? { |coordinate| @cells[coordinate].ship == nil }
   end
 
   def valid_placement?(ship_parameter, coordinates_parameter)
@@ -52,17 +52,17 @@ class Board
     end
   end
 
-  def valid_target?(coordinate)
-    !@cells[coordinate].fired_upon? && valid_coordinate?(coordinate)
+  def valid_target?(coordinate_parameter)
+    !@cells[coordinate_parameter].fired_upon? && valid_coordinate?(coordinate_parameter)
   end
 
 # refactor this method later
-  def render(show_ship = false)
+  def render(show_ship_parameter = false)
     header = "  1 2 3 4 \n"
-    row_a = "A #{@cells["A1"].render(show_ship)} #{@cells["A2"].render(show_ship)} #{@cells["A3"].render(show_ship)} #{@cells["A4"].render(show_ship)} \n"
-    row_b = "B #{@cells["B1"].render(show_ship)} #{@cells["B2"].render(show_ship)} #{@cells["B3"].render(show_ship)} #{@cells["B4"].render(show_ship)} \n"
-    row_c = "C #{@cells["C1"].render(show_ship)} #{@cells["C2"].render(show_ship)} #{@cells["C3"].render(show_ship)} #{@cells["C4"].render(show_ship)} \n"
-    row_d = "D #{@cells["D1"].render(show_ship)} #{@cells["D2"].render(show_ship)} #{@cells["D3"].render(show_ship)} #{@cells["D4"].render(show_ship)} \n"
+    row_a = "A #{@cells["A1"].render(show_ship_parameter)} #{@cells["A2"].render(show_ship_parameter)} #{@cells["A3"].render(show_ship_parameter)} #{@cells["A4"].render(show_ship_parameter)} \n"
+    row_b = "B #{@cells["B1"].render(show_ship_parameter)} #{@cells["B2"].render(show_ship_parameter)} #{@cells["B3"].render(show_ship_parameter)} #{@cells["B4"].render(show_ship_parameter)} \n"
+    row_c = "C #{@cells["C1"].render(show_ship_parameter)} #{@cells["C2"].render(show_ship_parameter)} #{@cells["C3"].render(show_ship_parameter)} #{@cells["C4"].render(show_ship_parameter)} \n"
+    row_d = "D #{@cells["D1"].render(show_ship_parameter)} #{@cells["D2"].render(show_ship_parameter)} #{@cells["D3"].render(show_ship_parameter)} #{@cells["D4"].render(show_ship_parameter)} \n"
     header + row_a + row_b + row_c + row_d
   end
 
