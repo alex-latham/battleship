@@ -74,11 +74,11 @@ class Game
   end
 
   def place_computer_ship(ship_parameter)
-      ship_coordinates = nil
-      until ship_coordinates != nil do
-        random_coordinates = @computer_board.cells.keys.sample(ship_parameter.length)
-        ship_coordinates = @computer_board.place(ship_parameter, random_coordinates)
-      end
+    ship_coordinates = nil
+    until ship_coordinates != nil do
+      random_coordinates = @computer_board.cells.keys.sample(ship_parameter.length)
+      ship_coordinates = @computer_board.place(ship_parameter, random_coordinates)
+    end
   end
 # remove true argument for computer board when finished debugging
   def display_boards
