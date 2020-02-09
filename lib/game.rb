@@ -38,6 +38,8 @@ class Game
   def turn
     display_boards
     player_shot
+    computer_shot
+    display_boards
   end
 
   def place_player_ship(ship_parameter)
@@ -67,15 +69,24 @@ class Game
 
   def player_shot
     puts "Enter the coordinate for your shot:"
-    response = gets.chomp.upcase
+    target = gets.chomp.upcase
 
-    until @computer_board.valid_target?(response)
+    until @computer_board.valid_target?(target)
       puts "Please enter a valid coordinate:"
-      response = gets.chomp.upcase
+      target = gets.chomp.upcase
     end
 
-    @computer_board.cells[response].fire_upon
-    display_boards
+    @computer_board.cells[target].fire_upon
+  end
+
+  def computer_shot
+    target = @player_board.cells.keys.sample
+
+    until @player_board.valid_target?(target)
+      target = @player_board.cells.keys.sample
+    end
+
+    @player_board.cells[target].fire_upon
   end
 
 end
