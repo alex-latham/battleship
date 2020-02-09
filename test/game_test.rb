@@ -29,13 +29,13 @@ class GameTest < Minitest::Test
   end
 
   def test_computer_can_choose_valid_placement
-    @game.place_computer_ship(@computer_data["cruiser"])
-    occupied_cells = @computer_data["computer_board"].cells.values.count{ |cell| cell.ship != nil}
+    @game.place_computer_ship(@computer_data[:cruiser])
+    occupied_cells = @computer_data[:computer_board].cells.values.count{ |cell| cell.ship != nil}
 
     assert_equal 3, occupied_cells
 
-    @game.place_computer_ship(@computer_data["submarine"])
-    occupied_cells = @computer_data["computer_board"].cells.values.count{ |cell| cell.ship != nil}
+    @game.place_computer_ship(@computer_data[:submarine])
+    occupied_cells = @computer_data[:computer_board].cells.values.count{ |cell| cell.ship != nil}
     assert_equal 5, occupied_cells
   end
 
