@@ -48,12 +48,18 @@ class Game
       player_feedback
       computer_feedback
     end
+    
     end_game
   end
 
   def end_game
-    return puts "You won!" if @computer_cruiser.health == 0 && @computer_submarine.health == 0
-    return puts "I won!"
+    if @computer_cruiser.health == 0 && @computer_submarine.health == 0
+      puts "You won!"
+    else
+      puts "I won!"
+    end
+
+    main_menu
   end
 
   def place_player_ship(ship_parameter)
