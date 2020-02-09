@@ -1,4 +1,6 @@
 class Game
+  # only needed for testing purposes; delete later after testing
+  attr_reader :computer_shots, :player_shots
 
   def initialize(boards_parameter, ships_parameter)
     @computer_board = boards_parameter[0]
@@ -66,7 +68,7 @@ class Game
 
   def place_computer_ship(ship_parameter)
       ship_coordinates = nil
-      until  ship_coordinates != nil do
+      until ship_coordinates != nil do
         random_coordinates = @computer_board.cells.keys.sample(ship_parameter.length)
         ship_coordinates = @computer_board.place(ship_parameter, random_coordinates)
       end
