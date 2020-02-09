@@ -27,11 +27,11 @@ class Cell
     end
   end
 
-  def render(show_ship = false)
+  def render(show_ship_parameter = false)
     return "M" if @fired_upon == true && @ship == nil
     return "X" if @fired_upon == true && @ship.sunk? == true
     return "H" if @fired_upon == true && @ship != nil
-    return "S" if show_ship == true && @ship != nil
+    return "S" if show_ship_parameter == true && @ship != nil
     return "."
   end
 
