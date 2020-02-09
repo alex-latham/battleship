@@ -46,7 +46,12 @@ class Game
       player_feedback
       computer_feedback
     end
+    end_game
+  end
 
+  def end_game
+    return puts "You won!" if @computer_cruiser.health == 0 && @computer_submarine.health == 0
+    return puts "I won!"
   end
 
   def place_player_ship(ship_parameter)
@@ -101,12 +106,12 @@ class Game
   def player_feedback
     return puts "Your shot on #{@player_shots.last} was a miss." if @computer_board.cells[@player_shots.last].render == "M"
     return puts "Your shot on #{@player_shots.last} was a hit." if @computer_board.cells[@player_shots.last].render == "H"
-    return puts "Your shot on #{@player_shots.last} sunk my #{@computer_board.cells[@player_shots.last].ship.name}." if @computer_board.cells[@player_shots.last].render == "X"
+    return puts "Your shot on #{@player_shots.last} sunk my #{@computer_board.cells[@player_shots.last].ship.name}."
   end
 
   def computer_feedback
     return puts "My shot on #{@computer_shots.last} was a miss." if @player_board.cells[@computer_shots.last].render == "M"
     return puts "My shot on #{@computer_shots.last} was a hit." if @player_board.cells[@computer_shots.last].render == "H"
-    return puts "My shot on #{@computer_shots.last} sunk your #{@player_board.cells[@computer_shots.last].ship.name}." if @player_board.cells[@computer_shots.last].render == "X"
+    return puts "My shot on #{@computer_shots.last} sunk your #{@player_board.cells[@computer_shots.last].ship.name}."
   end
 end
