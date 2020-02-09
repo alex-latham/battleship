@@ -1,6 +1,4 @@
 class Game
-  # only needed for testing purposes; delete later after testing
-  attr_reader :computer_shots, :player_shots
 
   def initialize(computer_data, player_data)
     @computer_data = computer_data
