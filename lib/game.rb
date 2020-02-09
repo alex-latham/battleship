@@ -48,7 +48,6 @@ class Game
       player_feedback
       computer_feedback
     end
-
     end_game
   end
 
@@ -58,7 +57,6 @@ class Game
     else
       puts "I won!"
     end
-
     main_menu
   end
 
@@ -80,10 +78,10 @@ class Game
       ship_coordinates = @computer_board.place(ship_parameter, random_coordinates)
     end
   end
-# remove true argument for computer board when finished debugging
+
   def display_boards
     puts "=============COMPUTER BOARD============="
-    puts @computer_board.render(true)
+    puts @computer_board.render
     puts "=============PLAYER BOARD==============="
     puts @player_board.render(true)
   end
