@@ -48,7 +48,7 @@ class Game
       player_feedback
       computer_feedback
     end
-    
+
     end_game
   end
 
@@ -64,10 +64,11 @@ class Game
 
   def place_player_ship(ship_parameter)
     puts "Enter the squares for the #{ship_parameter.name} (#{ship_parameter.length} spaces):"
-    response = gets.chomp.upcase.split(" ")
+    response = gets.chomp.upcase.gsub(",", " ").split(" ")
+    require "pry"; binding.pry
     until @player_board.place(ship_parameter, response) != nil do
       puts "Those are invalid coordinates. Please try again:"
-      response = gets.chomp.upcase.split(" ")
+      response = gets.chomp.upcase.gsub(",", " ").split(" ")
     end
     puts @player_board.render(true)
   end
@@ -89,11 +90,11 @@ class Game
 
   def player_shot
     puts "Enter the coordinate for your shot:"
-    target = gets.chomp.upcase
+    target = gets.chomp.upcase.delete(" ")[0..1]
 
     until @computer_board.valid_target?(target)
       puts "Please enter a valid coordinate:"
-      target = gets.chomp.upcase
+      target = gets.chomp.upcase.delete(" ")[0..1]
     end
 
     @computer_board.cells[target].fire_upon
