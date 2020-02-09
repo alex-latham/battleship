@@ -7,6 +7,8 @@ class Game
     @computer_submarine = ships_parameter[1]
     @player_cruiser = ships_parameter[2]
     @player_submarine = ships_parameter[3]
+    @computer_shots = []
+    @player_shots = []
   end
 
   def main_menu
@@ -39,6 +41,7 @@ class Game
     display_boards
     player_shot
     computer_shot
+    player_feedback
     display_boards
   end
 
@@ -77,6 +80,7 @@ class Game
     end
 
     @computer_board.cells[target].fire_upon
+    @player_shots << target
   end
 
   def computer_shot
@@ -87,6 +91,15 @@ class Game
     end
 
     @player_board.cells[target].fire_upon
+    @computer_shots << target
+  end
+
+  def player_feedback
+    require "pry"; binding.pry
+    return puts "Your shot on #{@player_shots.last} was a miss." if @computer_board.cells[@player_shots.last].render == "M"
+    return puts "Your shot on #{@player_shots.last} was a hit." if @computer_board.cells[@player_shots.last].render == "H"
+    return puts "Your shot on #{@player_shots.last} sunk a ship." if @computer_board.cells[@player_shots.last].render == "X"
+
   end
 
 end
