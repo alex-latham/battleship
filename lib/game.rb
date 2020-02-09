@@ -17,23 +17,23 @@ class Game
   end
 
   def setup
-    place_computer_ship(@computer_data["cruiser"])
-    place_computer_ship(@computer_data["submarine"])
+    place_computer_ship(@computer_data[:cruiser])
+    place_computer_ship(@computer_data[:submarine])
 
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
 
-    puts @player_data["player_board"].render(true)
-    place_player_ship(@player_data["cruiser"])
-    place_player_ship(@player_data["submarine"])
+    puts @player_data[:player_board].render(true)
+    place_player_ship(@player_data[:cruiser])
+    place_player_ship(@player_data[:submarine])
 
     turn
   end
 
   def turn
-    until @computer_data["cruiser"].health == 0 && @computer_data["submarine"].health == 0 ||
-    @player_data["cruiser"].health == 0 && @player_data["submarine"].health == 0
+    until @computer_data[:cruiser].health == 0 && @computer_data[:submarine].health == 0 ||
+    @player_data[:cruiser].health == 0 && @player_data[:submarine].health == 0
       display_boards
       player_shot
       computer_shot
@@ -42,7 +42,7 @@ class Game
   end
 
   def end_game
-    if @computer_data["cruiser"].health == 0 && @computer_data["submarine"].health == 0
+    if @computer_data[:cruiser].health == 0 && @computer_data[:submarine].health == 0
       puts "You won!"
     else
       puts "I won!"
@@ -53,61 +53,61 @@ class Game
   def place_player_ship(ship_parameter)
     puts "Enter the squares for the #{ship_parameter.name} (#{ship_parameter.length} spaces):"
     response = gets.chomp.upcase.gsub(",", " ").split(" ")
-    until @player_data["player_board"].place(ship_parameter, response) != nil do
+    until @player_data[:player_board].place(ship_parameter, response) != nil do
       puts "Those are invalid coordinates. Please try again:"
       response = gets.chomp.upcase.gsub(",", " ").split(" ")
     end
-    puts @player_data["player_board"].render(true)
+    puts @player_data[:player_board].render(true)
   end
 
   def place_computer_ship(ship_parameter)
     ship_coordinates = nil
     until ship_coordinates != nil do
-      random_coordinates = @computer_data["computer_board"].cells.keys.sample(ship_parameter.length)
-      ship_coordinates = @computer_data["computer_board"].place(ship_parameter, random_coordinates)
+      random_coordinates = @computer_data[:computer_board].cells.keys.sample(ship_parameter.length)
+      ship_coordinates = @computer_data[:computer_board].place(ship_parameter, random_coordinates)
     end
   end
 
   def display_boards
     puts "=============COMPUTER BOARD============="
-    puts @computer_data["computer_board"].render
+    puts @computer_data[:computer_board].render
     puts "=============PLAYER BOARD==============="
-    puts @player_data["player_board"].render(true)
+    puts @player_data[:player_board].render(true)
   end
 
   def player_shot
     puts "Enter the coordinate for your shot:"
     target_parameter = gets.chomp.upcase.delete(" ")[0..1]
 
-    until @computer_data["computer_board"].valid_target?(target_parameter)
+    until @computer_data[:computer_board].valid_target?(target_parameter)
       puts "Please enter a valid coordinate:"
       target_parameter = gets.chomp.upcase.delete(" ")[0..1]
     end
 
-    @computer_data["computer_board"].cells[target_parameter].fire_upon
+    @computer_data[:computer_board].cells[target_parameter].fire_upon
     player_feedback(target_parameter)
   end
 
   def computer_shot
-    target_parameter = @player_data["player_board"].cells.keys.sample
+    target_parameter = @player_data[:player_board].cells.keys.sample
 
-    until @player_data["player_board"].valid_target?(target_parameter)
-      target_parameter = @player_data["player_board"].cells.keys.sample
+    until @player_data[:player_board].valid_target?(target_parameter)
+      target_parameter = @player_data[:player_board].cells.keys.sample
     end
 
-    @player_data["player_board"].cells[target_parameter].fire_upon
+    @player_data[:player_board].cells[target_parameter].fire_upon
     computer_feedback(target_parameter)
   end
 
   def player_feedback(target_parameter)
-    return puts "Your shot on #{target_parameter} was a miss." if @computer_data["computer_board"].cells[target_parameter].render == "M"
-    return puts "Your shot on #{target_parameter} was a hit." if @computer_data["computer_board"].cells[target_parameter].render == "H"
-    return puts "Your shot on #{target_parameter} sunk my #{@computer_data["computer_board"].cells[target_parameter].ship.name}."
+    return puts "Your shot on #{target_parameter} was a miss." if @computer_data[:computer_board].cells[target_parameter].render == "M"
+    return puts "Your shot on #{target_parameter} was a hit." if @computer_data[:computer_board].cells[target_parameter].render == "H"
+    return puts "Your shot on #{target_parameter} sunk my #{@computer_data[:computer_board].cells[target_parameter].ship.name}."
   end
 
   def computer_feedback(target_parameter)
-    return puts "My shot on #{target_parameter} was a miss." if @player_data["player_board"].cells[target_parameter].render == "M"
-    return puts "My shot on #{target_parameter} was a hit." if @player_data["player_board"].cells[target_parameter].render == "H"
-    return puts "My shot on #{target_parameter} sunk your #{@player_data["player_board"].cells[target].ship.name}."
+    return puts "My shot on #{target_parameter} was a miss." if @player_data[:player_board].cells[target_parameter].render == "M"
+    return puts "My shot on #{target_parameter} was a hit." if @player_data[:player_board].cells[target_parameter].render == "H"
+    return puts "My shot on #{target_parameter} sunk your #{@player_data[:player_board].cells[target_parameter].ship.name}."
   end
 end
