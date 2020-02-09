@@ -38,11 +38,15 @@ class Game
   end
 
   def turn
-    display_boards
-    player_shot
-    computer_shot
-    player_feedback
-    display_boards
+    until @computer_cruiser.health == 0 && @computer_submarine.health == 0 ||
+    @player_cruiser.health == 0 && @player_submarine.health == 0
+      display_boards
+      player_shot
+      computer_shot
+      player_feedback
+      computer_feedback
+    end
+
   end
 
   def place_player_ship(ship_parameter)
@@ -95,11 +99,14 @@ class Game
   end
 
   def player_feedback
-    require "pry"; binding.pry
     return puts "Your shot on #{@player_shots.last} was a miss." if @computer_board.cells[@player_shots.last].render == "M"
     return puts "Your shot on #{@player_shots.last} was a hit." if @computer_board.cells[@player_shots.last].render == "H"
     return puts "Your shot on #{@player_shots.last} sunk a ship." if @computer_board.cells[@player_shots.last].render == "X"
-
   end
 
+  def computer_feedback
+    return puts "My shot on #{@computer_shots.last} was a miss." if @player_board.cells[@computer_shots.last].render == "M"
+    return puts "My shot on #{@computer_shots.last} was a hit." if @player_board.cells[@computer_shots.last].render == "H"
+    return puts "My shot on #{@computer_shots.last} sunk a ship." if @player_board.cells[@computer_shots.last].render == "X"
+  end
 end
