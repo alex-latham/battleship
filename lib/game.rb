@@ -1,8 +1,8 @@
 class Game
 
-  def initialize(computer_data, player_data)
-    @computer_data = computer_data
-    @player_data = player_data
+  def initialize(computer_data_parameter, player_data_parameter)
+    @computer_data = computer_data_parameter
+    @player_data = player_data_parameter
   end
 
   def main_menu
@@ -77,37 +77,37 @@ class Game
 
   def player_shot
     puts "Enter the coordinate for your shot:"
-    target = gets.chomp.upcase.delete(" ")[0..1]
+    target_parameter = gets.chomp.upcase.delete(" ")[0..1]
 
-    until @computer_data["computer_board"].valid_target?(target)
+    until @computer_data["computer_board"].valid_target?(target_parameter)
       puts "Please enter a valid coordinate:"
-      target = gets.chomp.upcase.delete(" ")[0..1]
+      target_parameter = gets.chomp.upcase.delete(" ")[0..1]
     end
 
-    @computer_data["computer_board"].cells[target].fire_upon
-    player_feedback(target)
+    @computer_data["computer_board"].cells[target_parameter].fire_upon
+    player_feedback(target_parameter)
   end
 
   def computer_shot
-    target = @player_data["player_board"].cells.keys.sample
+    target_parameter = @player_data["player_board"].cells.keys.sample
 
-    until @player_data["player_board"].valid_target?(target)
-      target = @player_data["player_board"].cells.keys.sample
+    until @player_data["player_board"].valid_target?(target_parameter)
+      target_parameter = @player_data["player_board"].cells.keys.sample
     end
 
-    @player_data["player_board"].cells[target].fire_upon
-    computer_feedback(target)
+    @player_data["player_board"].cells[target_parameter].fire_upon
+    computer_feedback(target_parameter)
   end
 
-  def player_feedback(target)
-    return puts "Your shot on #{target} was a miss." if @computer_data["computer_board"].cells[target].render == "M"
-    return puts "Your shot on #{target} was a hit." if @computer_data["computer_board"].cells[target].render == "H"
-    return puts "Your shot on #{target} sunk my #{@computer_data["computer_board"].cells[target].ship.name}."
+  def player_feedback(target_parameter)
+    return puts "Your shot on #{target_parameter} was a miss." if @computer_data["computer_board"].cells[target_parameter].render == "M"
+    return puts "Your shot on #{target_parameter} was a hit." if @computer_data["computer_board"].cells[target_parameter].render == "H"
+    return puts "Your shot on #{target_parameter} sunk my #{@computer_data["computer_board"].cells[target_parameter].ship.name}."
   end
 
-  def computer_feedback(target)
-    return puts "My shot on #{target} was a miss." if @player_data["player_board"].cells[target].render == "M"
-    return puts "My shot on #{target} was a hit." if @player_data["player_board"].cells[target].render == "H"
-    return puts "My shot on #{target} sunk your #{@player_data["player_board"].cells[target].ship.name}."
+  def computer_feedback(target_parameter)
+    return puts "My shot on #{target_parameter} was a miss." if @player_data["player_board"].cells[target_parameter].render == "M"
+    return puts "My shot on #{target_parameter} was a hit." if @player_data["player_board"].cells[target_parameter].render == "H"
+    return puts "My shot on #{target_parameter} sunk your #{@player_data["player_board"].cells[target].ship.name}."
   end
 end
