@@ -20,16 +20,6 @@ class GameTest < Minitest::Test
 
     assert_instance_of Game, game
   end
-# ask how to test for the player_shot(user input)
-  def test_it_tracks_shots_taken
-    game = Game.new(@boards, @ships)
-
-    assert_equal [], game.computer_shots
-    assert_equal [], game.player_shots
-
-    game.computer_shot
-    assert_equal 1, game.computer_shots.length
-  end
 
   def test_computer_can_choose_valid_placement
     game = Game.new(@boards, @ships)
