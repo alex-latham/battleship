@@ -68,6 +68,14 @@ class Game
   def player_shot
     puts "Enter the coordinate for your shot:"
     response = gets.chomp.upcase
-    @player_board.valid_target?(response)
+
+    until @computer_board.valid_target?(response)
+      puts "Please enter a valid coordinate:"
+      response = gets.chomp.upcase
+    end
+
+    @computer_board.cells[response].fire_upon
+    display_boards
   end
+
 end
