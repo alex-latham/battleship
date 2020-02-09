@@ -31,10 +31,10 @@ class Board
   end
 
   def valid_placement?(ship_parameter, coordinates_parameter)
-    letters = coordinates_parameter.map { |coordinate| coordinate[0].ord }.uniq.sort!
-    numbers = coordinates_parameter.map { |coordinate| coordinate[1].to_i }.uniq.sort!
+    letters = coordinates_parameter.map { |coordinate| coordinate[0].ord }.uniq.sort
+    numbers = coordinates_parameter.map { |coordinate| coordinate[1].to_i }.uniq.sort
 
-    if coordinates_parameter.all? { |coordinate| valid_coordinate?(coordinate) == true} &&
+    if coordinates_parameter.all? { |coordinate| valid_coordinate?(coordinate) } &&
       target_coordinates_empty?(ship_parameter, coordinates_parameter)
       return true if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
       return true if letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
@@ -47,11 +47,10 @@ class Board
   def place(ship_parameter, coordinates_parameter)
     if valid_placement?(ship_parameter, coordinates_parameter)
       coordinates_parameter.each do |coordinate|
-      @cells[coordinate].place_ship(ship_parameter)
+        @cells[coordinate].place_ship(ship_parameter)
       end
     end
   end
-
 # refactor this method later
   def render(show_ship = false)
     header = "  1 2 3 4 \n"
