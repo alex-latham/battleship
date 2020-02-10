@@ -77,11 +77,11 @@ class Game
 
   def player_shot
     puts "Enter the coordinate for your shot:"
-    target_parameter = gets.chomp.upcase.delete(" ")[0..1]
+    target_parameter = gets.chomp.upcase.delete(" ")
 
     until @computer_data[:computer_board].valid_target?(target_parameter)
       puts "Please enter a valid coordinate:"
-      target_parameter = gets.chomp.upcase.delete(" ")[0..1]
+      target_parameter = gets.chomp.upcase.delete(" ")
     end
 
     @computer_data[:computer_board].cells[target_parameter].fire_upon
