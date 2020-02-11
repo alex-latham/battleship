@@ -26,26 +26,30 @@ class Board
     @cells.include?(coordinate_parameter)
   end
 
-  # new method: valid_coordinates?(coordinates_parameter)
+  def valid_coordinates?(coordinates_parameter)
+    coordinates_parameter.all? { |coordinate| valid_coordinate?(coordinate) }
+  end
+
 
   def target_coordinates_empty?(ship_parameter, coordinates_parameter)
     coordinates_parameter.all? { |coordinate| @cells[coordinate].ship == nil }
   end
 
   def valid_placement?(ship_parameter, coordinates_parameter)
-    # move these two lines into the if statement so it only runs on valid and empty coordinates.
-    letters = coordinates_parameter.map { |coordinate| coordinate[0].ord }.uniq.sort
-    numbers = coordinates_parameter.map { |coordinate| coordinate[1].to_i }.uniq.sort
+    return false if !valid_coordinates?(coordinates_parameter)
+    return false if !target_coordinates_empty?(ship_parameter, coordinates_parameter)
 
-    # if valid_coordinates?(coordinates_parameter) would replace next line
-    if coordinates_parameter.all? { |coordinate| valid_coordinate?(coordinate) } &&
-      target_coordinates_empty?(ship_parameter, coordinates_parameter)
-      return true if letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
-      return true if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
-      return false
-    else
-      return false
-    end
+    letters = coordinates_parameter.map do |coordinate|
+      coordinate.match(/[A-Z]/).to_s.ord
+    end.uniq.sort
+
+    numbers = coordinates_parameter.map do |coordinate|
+      coordinate.match(/[0-9]+/).to_s.to_i
+    end.uniq.sort
+
+    return true if letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
+    return true if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
+    return false
   end
 
   def place(ship_parameter, coordinates_parameter)
