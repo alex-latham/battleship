@@ -26,19 +26,21 @@ class Board
     @cells.include?(coordinate_parameter)
   end
 
+  def valid_placement?(ship_parameter, coordinates_parameter)
+    return false if !valid_coordinates?(coordinates_parameter)
+    return false if !target_coordinates_empty?(coordinates_parameter)
+    return consecutive?(ship_parameter, coordinates_parameter)
+  end
+
   def valid_coordinates?(coordinates_parameter)
     coordinates_parameter.all? { |coordinate| valid_coordinate?(coordinate) }
   end
-
 
   def target_coordinates_empty?(coordinates_parameter)
     coordinates_parameter.all? { |coordinate| @cells[coordinate].ship == nil }
   end
 
-  def valid_placement?(ship_parameter, coordinates_parameter)
-    return false if !valid_coordinates?(coordinates_parameter)
-    return false if !target_coordinates_empty?(coordinates_parameter)
-
+  def consecutive?(ship_parameter, coordinates_parameter)
     letters = coordinates_parameter.map do |coordinate|
       coordinate.match(/[A-Z]/).to_s.ord
     end.uniq.sort
@@ -51,6 +53,7 @@ class Board
     return true if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
     return false
   end
+
 
   def place(ship_parameter, coordinates_parameter)
     if valid_placement?(ship_parameter, coordinates_parameter)
