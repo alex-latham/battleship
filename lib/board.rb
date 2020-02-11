@@ -31,13 +31,13 @@ class Board
   end
 
 
-  def target_coordinates_empty?(ship_parameter, coordinates_parameter)
+  def target_coordinates_empty?(coordinates_parameter)
     coordinates_parameter.all? { |coordinate| @cells[coordinate].ship == nil }
   end
 
   def valid_placement?(ship_parameter, coordinates_parameter)
     return false if !valid_coordinates?(coordinates_parameter)
-    return false if !target_coordinates_empty?(ship_parameter, coordinates_parameter)
+    return false if !target_coordinates_empty?(coordinates_parameter)
 
     letters = coordinates_parameter.map do |coordinate|
       coordinate.match(/[A-Z]/).to_s.ord
