@@ -16,4 +16,14 @@ player_data = {
 }
 
 game = Game.new(computer_data, player_data)
-game.main_menu
+
+response = nil
+until response == "p"
+  game.main_menu
+  response = gets.chomp.downcase
+  return abort("Fine, byeeeeeee.") if response == "q"
+end
+
+game.setup
+game.turn
+game.end_game
