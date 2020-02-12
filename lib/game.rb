@@ -8,12 +8,6 @@ class Game
   def main_menu
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
-
-    response = gets.chomp.downcase
-
-    return abort("Fine, byeeeeeee.") if response == "q"
-    return setup if response == "p"
-    return main_menu
   end
 
   def setup
@@ -27,8 +21,6 @@ class Game
     puts @player_data[:player_board].render(true)
     place_player_ship(@player_data[:cruiser])
     place_player_ship(@player_data[:submarine])
-
-    turn
   end
 
   def turn
@@ -38,7 +30,6 @@ class Game
       player_shot
       computer_shot
     end
-    end_game
   end
 
   def end_game
@@ -77,11 +68,11 @@ class Game
 
   def player_shot
     puts "Enter the coordinate for your shot:"
-    target_parameter = gets.chomp.upcase.delete(" ")
+    target_parameter = gets.chomp.upcase.delete(" ")[0..1]
 
     until @computer_data[:computer_board].valid_target?(target_parameter)
       puts "Please enter a valid coordinate:"
-      target_parameter = gets.chomp.upcase.delete(" ")
+      target_parameter = gets.chomp.upcase.delete(" ")[0..1]
     end
 
     @computer_data[:computer_board].cells[target_parameter].fire_upon
