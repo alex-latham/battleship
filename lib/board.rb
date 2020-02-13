@@ -2,24 +2,25 @@ class Board
   attr_reader :cells
 
   def initialize
-    @cells = {
-      "A1" => Cell.new("A1"),
-      "A2" => Cell.new("A2"),
-      "A3" => Cell.new("A3"),
-      "A4" => Cell.new("A4"),
-      "B1" => Cell.new("B1"),
-      "B2" => Cell.new("B2"),
-      "B3" => Cell.new("B3"),
-      "B4" => Cell.new("B4"),
-      "C1" => Cell.new("C1"),
-      "C2" => Cell.new("C2"),
-      "C3" => Cell.new("C3"),
-      "C4" => Cell.new("C4"),
-      "D1" => Cell.new("D1"),
-      "D2" => Cell.new("D2"),
-      "D3" => Cell.new("D3"),
-      "D4" => Cell.new("D4")
-    }
+    @cells = {}
+  end
+
+  def generate_cells(size_parameter)
+    size = size_parameter
+    starting_ord_value = 65
+    columns = (1..size).to_a
+    coordinates = []
+    until starting_ord_value == size + 65
+      columns.each do |column|
+        coordinates << starting_ord_value.chr + column.to_s
+      end
+      starting_ord_value += 1
+    end
+    cells = {}
+    coordinates.each do |coordinate|
+      cells[coordinate] = Cell.new(coordinate)
+    end
+    @cells = cells
   end
 
   def valid_coordinate?(coordinate_parameter)
@@ -43,12 +44,13 @@ class Board
   def consecutive?(ship_parameter, coordinates_parameter)
     letters = coordinates_parameter.map do |coordinate|
       coordinate.match(/[A-Z]/).to_s.ord
-    end.uniq.sort
+    end.uniq
 
     numbers = coordinates_parameter.map do |coordinate|
       coordinate.match(/[0-9]+/).to_s.to_i
-    end.uniq.sort
+    end.uniq
 
+    return false if numbers != numbers.sort || letters != letters.sort
     return true if letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
     return true if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
     return false
@@ -67,14 +69,28 @@ class Board
     valid_coordinate?(coordinate_parameter) && !@cells[coordinate_parameter].fired_upon?
   end
 
-# refactor this method later
   def render(show_ship_parameter = false)
-    header = "  1 2 3 4 \n"
-    row_a = "A #{@cells["A1"].render(show_ship_parameter)} #{@cells["A2"].render(show_ship_parameter)} #{@cells["A3"].render(show_ship_parameter)} #{@cells["A4"].render(show_ship_parameter)} \n"
-    row_b = "B #{@cells["B1"].render(show_ship_parameter)} #{@cells["B2"].render(show_ship_parameter)} #{@cells["B3"].render(show_ship_parameter)} #{@cells["B4"].render(show_ship_parameter)} \n"
-    row_c = "C #{@cells["C1"].render(show_ship_parameter)} #{@cells["C2"].render(show_ship_parameter)} #{@cells["C3"].render(show_ship_parameter)} #{@cells["C4"].render(show_ship_parameter)} \n"
-    row_d = "D #{@cells["D1"].render(show_ship_parameter)} #{@cells["D2"].render(show_ship_parameter)} #{@cells["D3"].render(show_ship_parameter)} #{@cells["D4"].render(show_ship_parameter)} \n"
-    header + row_a + row_b + row_c + row_d
+    board = "  "
+    length = Math.sqrt(@cells.length).to_i
+    length.times do |index|
+      board << (index + 1).to_s + " "
+    end
+    board << "\n"
+
+    starting_ord_value = 65
+    length.times do
+      board << "#{starting_ord_value.chr} "
+      length.times do |column_index|
+        if column_index > 8
+          board << "#{@cells[starting_ord_value.chr + (column_index + 1).to_s].render(show_ship_parameter)}  "
+        else
+          board << "#{@cells[starting_ord_value.chr + (column_index + 1).to_s].render(show_ship_parameter)} "
+        end
+      end
+      board << "\n"
+      starting_ord_value += 1
+    end
+    board
   end
 
 end
