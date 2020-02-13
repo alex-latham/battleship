@@ -73,11 +73,7 @@ class Board
     length = Math.sqrt(@cells.length).to_i
     length.times do |index|
       board << (index + 1).to_s
-      if index > 8
-        board << " "
-      else
-        board << "  "
-      end
+      index > 8 ? board << " " : board << "  "
     end
     board << "\n"
 
@@ -85,7 +81,7 @@ class Board
     length.times do
       board << "#{starting_ord_value.chr} "
       length.times do |column_index|
-        board << "#{cells[starting_ord_value.chr + (column_index + 1).to_s].render(show_ship_parameter)}  "
+        board << "#{@cells[starting_ord_value.chr + (column_index + 1).to_s].render(show_ship_parameter)}  "
       end
       board << "\n"
       starting_ord_value += 1

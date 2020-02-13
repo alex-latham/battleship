@@ -46,6 +46,7 @@ class BoardTest < Minitest::Test
 
   def test_it_can_validate_placement
     board = Board.new
+    # board.generate_cells(4)
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
