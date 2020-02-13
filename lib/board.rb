@@ -50,6 +50,7 @@ class Board
       coordinate.match(/[0-9]+/).to_s.to_i
     end.uniq
 
+    return false if numbers != numbers.sort || letters != letters.sort
     return true if letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
     return true if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
     return false
