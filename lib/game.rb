@@ -11,6 +11,7 @@ class Game
   end
 
   def setup
+
     place_computer_ship(@computer_data[:cruiser])
     place_computer_ship(@computer_data[:submarine])
 
@@ -60,7 +61,17 @@ class Game
   end
 
   def display_boards
-    puts "=============COMPUTER BOARD============="
+    computer_equal_signs = ((Math.sqrt(@computer_data[:computer_board].cells.length) * 3 - 14) / 2).to_i
+    computer_header = ""
+    computer_equal_signs.times do
+      computer_header << "="
+    end
+    computer_header << "COMPUTER BOARD"
+    computer_equal_signs.times do
+      computer_header << "="
+    end
+
+    puts computer_header
     puts @computer_data[:computer_board].render
     puts "=============PLAYER BOARD==============="
     puts @player_data[:player_board].render(true)
@@ -68,11 +79,11 @@ class Game
 
   def player_shot
     puts "Enter the coordinate for your shot:"
-    target_parameter = gets.chomp.upcase.delete(" ")[0..1]
+    target_parameter = gets.chomp.upcase.delete(" ")
 
     until @computer_data[:computer_board].valid_target?(target_parameter)
       puts "Please enter a valid coordinate:"
-      target_parameter = gets.chomp.upcase.delete(" ")[0..1]
+      target_parameter = gets.chomp.upcase.delete(" ")
     end
 
     @computer_data[:computer_board].cells[target_parameter].fire_upon
