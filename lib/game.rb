@@ -39,7 +39,6 @@ class Game
     else
       puts "I won!"
     end
-    main_menu
   end
 
   def place_player_ship(ship_parameter)
@@ -61,16 +60,10 @@ class Game
   end
 
   def display_boards
-    computer_equal_signs = ((Math.sqrt(@computer_data[:computer_board].cells.length) * 3 - 14) / 2).to_i
-    computer_equal_signs < 3 ? computer_equal_signs = 3 : computer_equal_signs
-    computer_header = "=" * computer_equal_signs + "COMPUTER BOARD" + "=" * computer_equal_signs
-    puts computer_header
+    puts "=============COMPUTER BOARD============="
     puts @computer_data[:computer_board].render
 
-    player_equal_signs = ((Math.sqrt(@player_data[:player_board].cells.length) * 3 - 12) / 2).to_i
-    player_equal_signs < 3 ? player_equal_signs = 3 : player_equal_signs
-    player_header = "=" * player_equal_signs + "PLAYER BOARD" + "=" * player_equal_signs
-    puts player_header
+    puts "==============PLAYER BOARD=============="
     puts @player_data[:player_board].render(true)
   end
 
