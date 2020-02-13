@@ -44,11 +44,11 @@ class Board
   def consecutive?(ship_parameter, coordinates_parameter)
     letters = coordinates_parameter.map do |coordinate|
       coordinate.match(/[A-Z]/).to_s.ord
-    end.uniq.sort
+    end.uniq
 
     numbers = coordinates_parameter.map do |coordinate|
       coordinate.match(/[0-9]+/).to_s.to_i
-    end.uniq.sort
+    end.uniq
 
     return true if letters.last - letters.first == ship_parameter.length - 1 && numbers.length == 1
     return true if numbers.last - numbers.first == ship_parameter.length - 1 && letters.length == 1
@@ -72,8 +72,7 @@ class Board
     board = "  "
     length = Math.sqrt(@cells.length).to_i
     length.times do |index|
-      board << (index + 1).to_s
-      index > 8 ? board << " " : board << "  "
+      board << (index + 1).to_s + " "
     end
     board << "\n"
 
@@ -81,7 +80,11 @@ class Board
     length.times do
       board << "#{starting_ord_value.chr} "
       length.times do |column_index|
-        board << "#{@cells[starting_ord_value.chr + (column_index + 1).to_s].render(show_ship_parameter)}  "
+        if column_index > 8
+          board << "#{@cells[starting_ord_value.chr + (column_index + 1).to_s].render(show_ship_parameter)}  "
+        else
+          board << "#{@cells[starting_ord_value.chr + (column_index + 1).to_s].render(show_ship_parameter)} "
+        end
       end
       board << "\n"
       starting_ord_value += 1
